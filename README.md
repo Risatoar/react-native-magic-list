@@ -13,7 +13,7 @@ animate for FlatList items.
 how to use react-native-magic-list?:
 
 ```bash
-npm install react-native-magic-moving --save
+npm install react-native-magic-list --save
 ```
 
 example for how to use in Demo:
