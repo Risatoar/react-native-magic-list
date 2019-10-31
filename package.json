@@ -1,0 +1,48 @@
+{
+  "name": "react-native-magic-list",
+  "author": "risatoar",
+  "description": "create animation for RN List",
+  "keywords": [
+    "design",
+    "react",
+    "react-component",
+    "component",
+    "components",
+    "ui",
+    "mobile",
+    "react native",
+    "react-native",
+    "rn",
+    "FlatList",
+    "magic"
+  ],
+  "main": "./component",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "start": "react-native start",
+    "test": "jest",
+    "lint": "eslint .",
+    "build": "babel component --ignore __tests__ --out-dir lib --copy-files"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:xuxiang9608/react-native-magic-list.git"
+  },
+  "dependencies": {
+    "react": "*",
+    "react-native": "*"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "color": "^0.11.1",
+    "events": "^1.1.1",
+    "prop-types": "^15.6.1",
+    "react-addons-shallow-compare": "^15.6.2"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
