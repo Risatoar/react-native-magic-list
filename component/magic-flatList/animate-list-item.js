@@ -2,13 +2,13 @@
 import React, { PureComponent } from 'react';
 import { Animated, ViewPropTypes } from 'react-native';
 import PropTypes from 'prop-types';
-import { animationTypes, mergeAnimationValue } from './utils';
+import { animationTypes, parseAnimate } from './utils';
 
 export default class AnimatedItem extends PureComponent {
   static propTypes = {
     index: PropTypes.number,
     delay: PropTypes.number,
-    animateType: PropTypes.oneOfType(
+    animateType: PropTypes.oneOf(
       PropTypes.oneOf(animationTypes),
       PropTypes.arrayOf(animationTypes)
     ),
@@ -48,11 +48,28 @@ export default class AnimatedItem extends PureComponent {
     }
   }
 
+  buildConfig = () => {
+    const { animateValue, responseValue } = this.state;
+    const { touchAnimateType, animateType } = this.props;
+    const combineAnimation = [{ type: animateType, value: animateValue }];
+    const shouldResponseTouchEvent =
+      touchAnimateType !== 'none' && Array.isArray(animateType)
+        ? !animateType.includes('scale')
+        : 'scale' !== touchAnimateType;
+    shouldResponseTouchEvent &&
+      combineAnimation.push({ type: touchAnimateType, value: responseValue });
+    return {
+      ...parseAnimate(combineAnimation),
+      shouldResponseTouchEvent,
+    };
+  };
+
   layoutAnimateOn = () => {
+    const { type } = this.buildConfig();
     const { index, delay } = this.props;
     const { animateInit } = this.state;
     if (animateInit) return;
-    Animated.timing(this.state.animateValue, {
+    Animated[type](this.state.animateValue, {
       duration: 500,
       delay: index * delay,
       toValue: 1,
@@ -62,36 +79,30 @@ export default class AnimatedItem extends PureComponent {
   };
 
   _onResponderGrant = () => {
-    Animated.timing(this.state.responseValue, {
-      toValue: 0.9,
-      duration: 200,
-    }).start();
+    this._onAnimatedPanResponder(0.9);
   };
 
   _onResponderRelease = () => {
+    this._onAnimatedPanResponder(1);
+  };
+
+  _onAnimatedPanResponder = value => {
     Animated.timing(this.state.responseValue, {
-      toValue: 1,
+      toValue: value,
       duration: 200,
     }).start();
   };
 
   render() {
-    const { animateValue, responseValue } = this.state;
-    const { touchAnimateType, animateType, style } = this.props;
-    const combineAnimation = [{ type: animateType, value: animateValue }];
-    const shouldResponseTouchEvent =
-      touchAnimateType !== 'none' && Array.isArray(animateType)
-        ? !animateType.includes('scale')
-        : 'scale' !== touchAnimateType;
-    shouldResponseTouchEvent &&
-      combineAnimation.push({ type: touchAnimateType, value: responseValue });
+    const { style } = this.props;
+    const { animateStyle, shouldResponseTouchEvent } = this.buildConfig();
     return (
       <Animated.View
         onStartShouldSetResponder={() => shouldResponseTouchEvent}
         onResponderGrant={this._onResponderGrant}
         onResponderRelease={this._onResponderRelease}
         style={{
-          ...mergeAnimationValue(combineAnimation),
+          ...animateStyle,
           ...style,
         }}
       >

@@ -3,6 +3,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { FlatList, Animated } from 'react-native';
 import AnimatedItem from './animate-list-item';
+import { animationTypes } from './utils';
 // compatible with versions not currently Animated.FlatList
 const FlatListBase = Animated.createAnimatedComponent(FlatList);
 

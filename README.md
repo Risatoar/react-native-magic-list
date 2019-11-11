@@ -29,8 +29,8 @@ export class Demo extends React.Component {
 	render() {
 		return (
 			<MagicFlatList
-        data={mockedData}
-        animateType="floatFromBottom"
+				data={mockedData}
+				animateType='floatFromBottom'
 				renderItem={() => (
 					<View style={{ width: 100, height: 100, backgroundColor: 'red' }} />
 				)}
@@ -42,12 +42,44 @@ export class Demo extends React.Component {
 
 - props：
 
-| key     | description     | type          | default |
-| -------- | -------- | ------------- | ------ |
-| renderItem    | Rendering component     | function | () => void   |
-| delay | each item's delay | number      | 200   |
-| animateType    |  Entry animation type | array or string    |  'floatFromBottom'  |
-| touchAnimateType | Touch the animation | string      | 'scale'   |
-| FlatList.propTypes | Inherit FlatList's propTypes | any      | null   |
+| key                | description                  | type            | default           |
+| ------------------ | ---------------------------- | --------------- | ----------------- |
+| renderItem         | Rendering component          | function        | () => void        |
+| delay              | each item's delay            | number          | 200               |
+| animateType        | Entry animation type         | array or string | 'floatFromBottom' |
+| touchAnimateType   | Touch the animation          | string          | 'scale'           |
+| FlatList.propTypes | Inherit FlatList's propTypes | any             | null              |
 
-animateType is now support "floatFromBottom", "floatFromLeft", "floatFromRight", "scale"，When you need to use the entrance animation you can choose the following two ways: animateType="floatFromBottom" or animateType=["floatFromBottom", '"floatFromLeft"]
+- Supported animation types
+
+```javascript
+// base
+'floatFromBottomBig';
+'floatFromBottom';
+'floatFromTop';
+'floatFromLeft';
+'floatFromRight';
+'scale';
+'opacity';
+
+// mixin
+'fadeIn';
+'fadeInDown';
+'fadeInLeft';
+'fadeInRight';
+'fadeInUp';
+'slideInUp';
+'slideInDown';
+'slideInLeft';
+'slideInRight';
+'zoomIn';
+'zoomDownIn';
+'zoomUpIn';
+'zoomInRight';
+'zoomInLeft';
+```
+
+When you need to use the entrance animation you can choose the following two
+ways: animateType="floatFromBottom" or animateType=["floatFromBottom",
+'"floatFromLeft"], But if you use a hybrid animation, only the top one will
+work, and the rest of the base animations won't work.
