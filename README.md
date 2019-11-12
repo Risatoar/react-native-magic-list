@@ -2,6 +2,8 @@
 
 animate for FlatList items.
 
+* [中文文档](./docs/README_CN.md)
+
 ## 1. Examples
 
 <p align="center">
