@@ -2,6 +2,8 @@
 
 简易替换 FlatList，就能给每一个子项添加上 magic 入场动画
 
+- [事例](../example)
+
 ## 1. 例子
 
 <p align="center">
@@ -47,7 +49,6 @@ export class Demo extends React.Component {
 | renderItem         | 渲染每一个子项             | function        | () => void        |
 | delay              | 每一个子项的延迟时间       | number          | 200               |
 | animateType        | 动画类型                   | array or string | 'floatFromBottom' |
-| touchAnimateType   | 手势动画类型               | string          | 'scale'           |
 | FlatList.propTypes | 继承 FlatList 的 propTypes | any             | null              |
 
 - 目前支持的动画类型
@@ -90,3 +91,5 @@ animateType = ["floatFromBottom", "floatFromLeft"];
 ```
 
 但如果你使用复合动画，例如使用数组传递动画类型的方式["floatFromLeft", "zoomIn", "zoonInLeft"], 只有首位的 zoonIn 会执行，其余的动画不会执行。
+
+不好意思，目前暂时不支持 touchAnimateType, 我们会尽快恢复。

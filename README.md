@@ -3,6 +3,7 @@
 animate for FlatList items.
 
 * [中文文档](./docs/README_CN.md)
+* [Example](./example)
 
 ## 1. Examples
 
@@ -49,7 +50,6 @@ export class Demo extends React.Component {
 | renderItem         | Rendering component          | function        | () => void        |
 | delay              | each item's delay            | number          | 200               |
 | animateType        | Entry animation type         | array or string | 'floatFromBottom' |
-| touchAnimateType   | Touch the animation          | string          | 'scale'           |
 | FlatList.propTypes | Inherit FlatList's propTypes | any             | null              |
 
 - Supported animation types
@@ -85,3 +85,5 @@ When you need to use the entrance animation you can choose the following two
 ways: animateType="floatFromBottom" or animateType=["floatFromBottom",
 '"floatFromLeft"], But if you use a hybrid animation, only the top one will
 work, and the rest of the base animations won't work.
+
+sorry, now touchAnimateType is not going to work, we will fix it as soon.

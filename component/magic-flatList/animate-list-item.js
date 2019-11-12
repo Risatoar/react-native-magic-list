@@ -2,7 +2,8 @@
 import React, { PureComponent } from 'react';
 import { Animated, ViewPropTypes } from 'react-native';
 import PropTypes from 'prop-types';
-import { animationTypes, parseAnimate } from './utils';
+import { parseAnimate } from './utils';
+import { animationTypes } from '../../animate-type';
 
 export default class AnimatedItem extends PureComponent {
   static propTypes = {
@@ -95,12 +96,9 @@ export default class AnimatedItem extends PureComponent {
 
   render() {
     const { style } = this.props;
-    const { animateStyle, shouldResponseTouchEvent } = this.buildConfig();
+    const { animateStyle } = this.buildConfig();
     return (
       <Animated.View
-        onStartShouldSetResponder={() => shouldResponseTouchEvent}
-        onResponderGrant={this._onResponderGrant}
-        onResponderRelease={this._onResponderRelease}
         style={{
           ...animateStyle,
           ...style,
