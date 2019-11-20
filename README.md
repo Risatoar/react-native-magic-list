@@ -2,8 +2,8 @@
 
 animate for FlatList items.
 
-* [中文文档](./docs/README_CN.md)
-* [Example](./example)
+- [中文文档](./docs/README_CN.md)
+- [Example](./example)
 
 ## 1. Examples
 
@@ -45,12 +45,13 @@ export class Demo extends React.Component {
 
 - props：
 
-| key                | description                  | type            | default           |
-| ------------------ | ---------------------------- | --------------- | ----------------- |
-| renderItem         | Rendering component          | function        | () => void        |
-| delay              | each item's delay            | number          | 200               |
-| animateType        | Entry animation type         | array or string | 'floatFromBottom' |
-| FlatList.propTypes | Inherit FlatList's propTypes | any             | null              |
+| key                | description                             | type            | default           |
+| ------------------ | --------------------------------------- | --------------- | ----------------- |
+| renderItem         | Rendering component                     | function        | () => void        |
+| delay              | each item's delay                       | number          | 200               |
+| animateType        | Entry animation type                    | array or string | 'floatFromBottom' |
+| onComplete         | callback when the animation is all over | function        | null              |
+| FlatList.propTypes | Inherit FlatList's propTypes            | any             | null              |
 
 - Supported animation types
 
