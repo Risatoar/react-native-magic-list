@@ -3,12 +3,12 @@
 animate for FlatList items.
 
 - [中文文档](./docs/README_CN.md)
-- [Example](./example)
+- [Example](https://github.com/Risatoar/react-native-magic-list-demo/tree/master/example)
 
 ## 1. Examples
 
 <p align="center">
-  <img src="./res/demo.gif" width=375/>
+  <img src="https://github.com/Risatoar/react-native-magic-list-demo/blob/master/res/demo.gif" width=375/>
 </p>
 
 ## 2. Basic Usage
