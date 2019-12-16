@@ -2,7 +2,7 @@
 
 animate for FlatList items.
 
-- [中文文档](./docs/README_CN.md)
+- [中文文档](https://github.com/Risatoar/react-native-magic-list-demo/blob/master/docs/README_CN.md)
 - [Example](https://github.com/Risatoar/react-native-magic-list-demo/tree/master/example)
 
 ## 1. Examples
