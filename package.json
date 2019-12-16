@@ -17,7 +17,7 @@
     "magic"
   ],
   "main": "./component",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "private": false,
   "scripts": {
     "android": "react-native run-android",
@@ -29,7 +29,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:xuxiang9608/react-native-magic-list.git"
+    "url": "git@github.com:Risatoar/react-native-magic-list.git"
   },
   "dependencies": {
   },
