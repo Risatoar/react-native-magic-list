@@ -1,6 +1,6 @@
-import { default as animationInterpolation } from './base'
-import { default as fadeAnimation } from './fade'
-import { default as slideAnimation } from './slide'
+import { default as animationInterpolation } from './base';
+import { default as fadeAnimation } from './fade';
+import { default as slideAnimation } from './slide';
 import { default as zoomAnimation } from './zoom';
 import { default as bounceAnimation } from './bounce';
 
@@ -19,5 +19,5 @@ export const animationTypes = [
 
 export default {
   animationTypes,
-  animationInterpolation
-}
+  animationInterpolation,
+};

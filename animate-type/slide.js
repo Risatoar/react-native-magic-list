@@ -1,36 +1,36 @@
-import { Easing } from "react-native";
+import { Easing } from 'react-native';
 
 export default {
   slideInUp: {
-    type: ["floatFromBottomBig", "scale"],
+    type: ['floatFromBottomBig', 'scale'],
     typeParse: null,
-    animateType: "timing",
+    animateType: 'timing',
     animateConfig: {
-      easing: Easing.in
-    }
+      easing: Easing.in,
+    },
   },
   slideInDown: {
-    type: ["floatFromTopBig", "scale"],
+    type: ['floatFromTopBig', 'scale'],
     typeParse: null,
-    animateType: "timing",
+    animateType: 'timing',
     animateConfig: {
-      easing: Easing.in
-    }
+      easing: Easing.in,
+    },
   },
   slideInLeft: {
-    type: ["floatFromLeftBig", "scale"],
+    type: ['floatFromLeftBig', 'scale'],
     typeParse: null,
-    animateType: "timing",
+    animateType: 'timing',
     animateConfig: {
-      easing: Easing.in
-    }
+      easing: Easing.in,
+    },
   },
   slideInRight: {
-    type: ["floatFromRightBig", "scale"],
+    type: ['floatFromRightBig', 'scale'],
     typeParse: null,
-    animateType: "timing",
+    animateType: 'timing',
     animateConfig: {
-      easing: Easing.in
-    }
-  }
+      easing: Easing.in,
+    },
+  },
 };

@@ -1,0 +1,6 @@
+.prettierrc.js
+.eslintrc.js
+.eslintignore
+.editorconfig
+docs/
+node_modules

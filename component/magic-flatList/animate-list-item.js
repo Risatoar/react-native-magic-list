@@ -6,115 +6,113 @@ import { parseAnimate } from './utils';
 import { animationTypes } from '../../animate-type';
 
 export default class AnimatedItem extends PureComponent {
-	static propTypes = {
-		index: PropTypes.number,
-		delay: PropTypes.number,
-		animateType: PropTypes.oneOf(
-			PropTypes.oneOf(animationTypes),
-			PropTypes.arrayOf(animationTypes)
-		),
-		touchAnimateType: PropTypes.oneOf('scale', 'none'),
-		children: PropTypes.element,
-		isViewable: PropTypes.bool,
-		style: ViewPropTypes.style,
-		total: PropTypes.number.isRequired,
-		onComplete: PropTypes.func
-	};
+  static propTypes = {
+    index: PropTypes.number,
+    delay: PropTypes.number,
+    animateType: PropTypes.oneOf(
+      PropTypes.oneOf(animationTypes),
+      PropTypes.arrayOf(animationTypes)
+    ),
+    touchAnimateType: PropTypes.oneOf('scale', 'none'),
+    children: PropTypes.element,
+    isViewable: PropTypes.bool,
+    style: ViewPropTypes.style,
+    total: PropTypes.number.isRequired,
+    onComplete: PropTypes.func,
+  };
 
-	static defaultProps = {
-		index: 0,
-		delay: 300,
-		animateType: 'floatFromBottom',
-		touchAnimateType: 'scale',
-		children: null,
-		isViewable: true,
-		style: {},
-		onComplete: null
-	};
+  static defaultProps = {
+    index: 0,
+    delay: 300,
+    animateType: 'floatFromBottom',
+    touchAnimateType: 'scale',
+    children: null,
+    isViewable: true,
+    style: {},
+    onComplete: null,
+  };
 
-	constructor(props) {
-		super(props);
-		this.state = {
-			animateInit: false,
-			animateValue: new Animated.Value(0),
-			responseValue: new Animated.Value(1)
-		};
-	}
+  constructor(props) {
+    super(props);
+    this.state = {
+      animateInit: false,
+      animateValue: new Animated.Value(0),
+      responseValue: new Animated.Value(1),
+    };
+  }
 
-	componentDidMount() {
-		const { isViewable } = this.props;
-		isViewable && this.layoutAnimateOn();
-	}
+  componentDidMount() {
+    const { isViewable } = this.props;
+    isViewable && this.layoutAnimateOn();
+  }
 
-	componentWillReceiveProps(nextProps) {
-		if (
-			this.props.isViewable !== nextProps.isViewable &&
-			nextProps.isViewable
-		) {
-			this.layoutAnimateOn();
-		}
-	}
+  componentWillReceiveProps(nextProps) {
+    if (this.props.isViewable !== nextProps.isViewable && nextProps.isViewable) {
+      this.layoutAnimateOn();
+    }
+  }
 
-	buildConfig = () => {
-		const { animateValue, responseValue } = this.state;
-		const { touchAnimateType, animateType } = this.props;
-		const combineAnimation = [{ type: animateType, value: animateValue }];
-		const shouldResponseTouchEvent =
-			touchAnimateType !== 'none' && Array.isArray(animateType)
-				? !animateType.includes('scale')
-				: 'scale' !== touchAnimateType;
-		shouldResponseTouchEvent &&
-			combineAnimation.push({ type: touchAnimateType, value: responseValue });
-		return {
-			...parseAnimate(combineAnimation),
-			shouldResponseTouchEvent
-		};
-	};
+  buildConfig = () => {
+    const { animateValue, responseValue } = this.state;
+    const { touchAnimateType, animateType } = this.props;
+    const combineAnimation = [{ type: animateType, value: animateValue }];
+    const shouldResponseTouchEvent =
+      touchAnimateType !== 'none' && Array.isArray(animateType)
+        ? !animateType.includes('scale')
+        : 'scale' !== touchAnimateType;
+    shouldResponseTouchEvent &&
+      combineAnimation.push({ type: touchAnimateType, value: responseValue });
+    return {
+      ...parseAnimate(combineAnimation),
+      shouldResponseTouchEvent,
+    };
+  };
 
-	layoutAnimateOn = () => {
-		const { type } = this.buildConfig();
-		const { index, delay, total, onComplete } = this.props;
-		const { animateInit } = this.state;
-		if (animateInit) return;
-		Animated[type](this.state.animateValue, {
-			duration: 500,
-			delay: index * delay,
-			toValue: 1
-		}).start(({ finished }) => {
-			if (finished) {
-				this.setState({ animateInit: true }, () => {
-					total === index - 1 && onComplete && onComplete();
-				});
-			}
-		});
-	};
+  layoutAnimateOn = () => {
+    const { type } = this.buildConfig();
+    const { index, delay, total, onComplete } = this.props;
+    const { animateInit } = this.state;
+    if (animateInit) return;
+    Animated[type](this.state.animateValue, {
+      duration: 500,
+      delay: index * delay,
+      toValue: 1,
+    }).start(({ finished }) => {
+      if (finished) {
+        this.setState({ animateInit: true }, () => {
+          total === index - 1 && onComplete && onComplete();
+        });
+      }
+    });
+  };
 
-	_onResponderGrant = () => {
-		this._onAnimatedPanResponder(0.9);
-	};
+  _onResponderGrant = () => {
+    this._onAnimatedPanResponder(0.9);
+  };
 
-	_onResponderRelease = () => {
-		this._onAnimatedPanResponder(1);
-	};
+  _onResponderRelease = () => {
+    this._onAnimatedPanResponder(1);
+  };
 
-	_onAnimatedPanResponder = value => {
-		Animated.timing(this.state.responseValue, {
-			toValue: value,
-			duration: 200
-		}).start();
-	};
+  _onAnimatedPanResponder = value => {
+    Animated.timing(this.state.responseValue, {
+      toValue: value,
+      duration: 200,
+    }).start();
+  };
 
-	render() {
-		const { style } = this.props;
-		const { animateStyle } = this.buildConfig();
-		return (
-			<Animated.View
-				style={{
-					...animateStyle,
-					...style
-				}}>
-				{this.props.children}
-			</Animated.View>
-		);
-	}
+  render() {
+    const { style } = this.props;
+    const { animateStyle } = this.buildConfig();
+    return (
+      <Animated.View
+        style={{
+          ...animateStyle,
+          ...style,
+        }}
+      >
+        {this.props.children}
+      </Animated.View>
+    );
+  }
 }

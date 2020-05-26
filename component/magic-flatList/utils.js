@@ -2,47 +2,47 @@ import { animationInterpolationMixin } from '../../animate-type';
 import { default as animationInterpolation } from '../../animate-type/base';
 
 /* eslint-disable import/no-extraneous-dependencies */
-export const parseAnimate = (animteTypeQuene = []) => {
-  const mutiAnimateType = Object.keys(animationInterpolationMixin);
-  let hasMutiAnimateType = false;
+export const parseAnimate = (animateTypeQueue = []) => {
+  const multiAnimateType = Object.keys(animationInterpolationMixin);
+  let hasMultiAnimateType = false;
   let defaultAnimateType = '';
   let index = 0;
   let arr = [];
-  let animtedType = 'timing';
-  const copyAnimteTypeQuene = Array.prototype.slice.call(animteTypeQuene);
-  const [{ type, value }] = copyAnimteTypeQuene;
+  let animatedType = 'timing';
+  const copyAnimateTypeQueue = Array.prototype.slice.call(animateTypeQueue);
+  const [{ type, value }] = copyAnimateTypeQueue;
   const itemAnimateTypes = toArray(type);
   for (; index < itemAnimateTypes.length; index++) {
     const _item = itemAnimateTypes[index];
-    if (!hasMutiAnimateType) {
-      const isMutiAnimateTypeExist = mutiAnimateType.includes(_item);
-      isMutiAnimateTypeExist && ((hasMutiAnimateType = true), (defaultAnimateType = _item));
-      !isMutiAnimateTypeExist && arr.push(_item);
+    if (!hasMultiAnimateType) {
+      const isMultiAnimateTypeExist = multiAnimateType.includes(_item);
+      isMultiAnimateTypeExist && ((hasMultiAnimateType = true), (defaultAnimateType = _item));
+      !isMultiAnimateTypeExist && arr.push(_item);
     }
   }
-  if (hasMutiAnimateType) {
+  if (hasMultiAnimateType) {
     const target = animationInterpolationMixin[defaultAnimateType];
     const { type: t, typeParse } = target;
     arr = typeParse ? typeParse(toArray(t)) : toArray(t);
-    animtedType = target.animateType;
-    copyAnimteTypeQuene.splice(0, 1, { type: arr, value });
+    animatedType = target.animateType;
+    copyAnimateTypeQueue.splice(0, 1, { type: arr, value });
   }
   return {
-    type: animtedType,
-    animateStyle: mergeAnimationValue(copyAnimteTypeQuene),
+    type: AnimatedType,
+    animateStyle: mergeAnimationValue(copyAnimateTypeQueue),
   };
 };
 
-export const mergeAnimationValue = (combineQuene = []) =>
-  combineQuene.reduce((preQuene, lastQuene = {}) => {
-    const { type, value } = lastQuene;
+export const mergeAnimationValue = (combineQueue = []) =>
+  combineQueue.reduce((preQueue, lastQueue = {}) => {
+    const { type, value } = lastQueue;
     const animations = toArray(type);
     const currentAnimationStyle = animations.reduce((pre, cur) => {
       const cloneByPre = { ...pre };
       const target = animationInterpolation[cur];
       if (!target) return cloneByPre;
       const { type: animationType, valueParse } = target;
-      if (typesNeedTransfrom.includes(animationType)) {
+      if (typesNeedTransform.includes(animationType)) {
         !cloneByPre.transform && (cloneByPre.transform = []);
         cloneByPre.transform &&
           cloneByPre.transform.push({
@@ -53,12 +53,12 @@ export const mergeAnimationValue = (combineQuene = []) =>
       }
       return cloneByPre;
     }, {});
-    return mergeTransfromStyle(preQuene, currentAnimationStyle);
+    return mergeTransformStyle(preQueue, currentAnimationStyle);
   }, {});
 
 export const toArray = target => (Array.isArray(target) ? target : [target]);
 
-export const typesNeedTransfrom = [
+export const typesNeedTransform = [
   'translateY',
   'translateX',
   'scale',
@@ -68,21 +68,21 @@ export const typesNeedTransfrom = [
   'rotateY',
 ];
 
-export const mergeTransfromStyle = (source, target) => {
+export const mergeTransformStyle = (source, target) => {
   const sourceStyle = { ...source };
   const targetStyle = { ...target };
   let ret = {};
   if (sourceStyle.transform && targetStyle.transform) {
     targetStyle.transform.forEach(e => {
       const [key] = Object.entries(e);
-      const isSoruceStyleExist = sourceStyle.transform.findIndex(_it => {
+      const isSourceStyleExist = sourceStyle.transform.findIndex(_it => {
         const [sourceKey] = Object.entries(_it);
         return sourceKey === key;
       });
-      if (isSoruceStyleExist === -1) {
+      if (isSourceStyleExist === -1) {
         sourceStyle.transform.push(e);
       } else {
-        sourceStyle.transform.splice(isSoruceStyleExist, 1, e);
+        sourceStyle.transform.splice(isSourceStyleExist, 1, e);
       }
     });
     delete targetStyle.transform;
